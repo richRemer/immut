@@ -1,0 +1,23 @@
+{
+  "name": "immut",
+  "version": "0.0.1",
+  "description": "immutable helpers",
+  "main": "immut.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/richRemer/immut.git"
+  },
+  "author": "Richard Remer <reanjr@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/richRemer/immut/issues"
+  },
+  "homepage": "https://github.com/richRemer/immut#readme",
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^3.0.2"
+  }
+}
