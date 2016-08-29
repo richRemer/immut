@@ -45,3 +45,25 @@ describe("set(object, string, *)", () => {
         expect(Object.isFrozen(updated)).to.be(true);
     });
 });
+
+describe("set(object, object)", () => {
+    var obj = {foo: 42};
+
+    it("should return new object with key set", () => {
+        var updated = immut.set(obj, {bar: 13});
+        expect(updated).to.be.an("object");
+        expect(updated).to.not.be(obj);
+        expect(updated.foo).to.be(42);
+        expect(updated.bar).to.be(13);
+    });
+
+    it("should not updated original object", () => {
+        var updated = immut.set(obj, {bar: 13});
+        expect(obj.bar).to.be(undefined);
+    });
+
+    it("should return frozen object", () => {
+        var updated = immut.set(obj, {bar: 13});
+        expect(Object.isFrozen(updated)).to.be(true);
+    });
+});
