@@ -18,6 +18,7 @@
   "homepage": "https://github.com/richRemer/immut#readme",
   "devDependencies": {
     "expect.js": "^0.3.1",
-    "mocha": "^3.0.2"
+    "mocha": "^3.0.2",
+    "sinon": "^1.17.5"
   }
 }

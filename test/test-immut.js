@@ -1,4 +1,5 @@
 var expect = require("expect.js"),
+    sinon = require("sinon"),
     immut = require("..");
 
 describe("push(array, ...)", () => {
@@ -9,17 +10,50 @@ describe("push(array, ...)", () => {
         expect(updated).to.be.an("array");
         expect(updated).to.not.be(arr);
         expect(updated.length).to.be(3);
-        expect(~updated.indexOf("peach")).to.be.ok();
+        expect(updated[2]).to.be("peach");
     });
 
     it("should not update original array", () => {
         var updated = immut.push(arr, "peach");
         expect(arr.length).to.be(2);
-        expect(~arr.indexOf("peach")).to.not.be.ok();
+        expect(arr[0]).to.be("apple");
+        expect(arr[1]).to.be("orange");
     });
 
     it("should return frozen array", () => {
         var updated = immut.push(arr, "peach");
+        expect(Object.isFrozen(updated)).to.be(true);
+    });
+});
+
+describe("popped(array, [function])", () => {
+    var arr = ["apple", "orange"];
+
+    it("should return new array with last value removed", () => {
+        var updated = immut.popped(arr);
+        expect(updated).to.be.an("array");
+        expect(updated).to.not.be(arr);
+        expect(updated.length).to.be(1);
+        expect(updated[0]).to.be("apple");
+    });
+
+    it("should pass popped value to function", () => {
+        var spy = sinon.spy(),
+            updated = immut.popped(arr, spy);
+
+        expect(spy.calledOnce).to.be(true);
+        expect(spy.calledWith("orange")).to.be(true);
+    });
+
+    it("should not update original array", () => {
+        var updated = immut.popped(arr);
+        expect(arr.length).to.be(2);
+        expect(arr[0]).to.be("apple");
+        expect(arr[1]).to.be("orange");
+    });
+
+    it("should return frozen array", () => {
+        var updated = immut.popped(arr);
         expect(Object.isFrozen(updated)).to.be(true);
     });
 });
