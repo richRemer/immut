@@ -57,7 +57,7 @@ describe("set(object, object)", () => {
         expect(updated.bar).to.be(13);
     });
 
-    it("should not updated original object", () => {
+    it("should not update original object", () => {
         var updated = immut.set(obj, {bar: 13});
         expect(obj.bar).to.be(undefined);
     });
@@ -67,3 +67,30 @@ describe("set(object, object)", () => {
         expect(Object.isFrozen(updated)).to.be(true);
     });
 });
+
+describe("walk(obj, string[], function, ...)", () => {
+    var obj = {foo: {bar: {baz: 42}}},
+        arr = {foo: {bar: [42]}};
+
+    it("should walk object keys with set, then apply function to final", () => {
+        var updated = immut.walk(obj, ["foo", "bar"], immut.set, "baz", 13);
+        expect(updated).to.be.an("object");
+        expect(updated).to.not.be(obj);
+        expect(updated.foo).to.be.an("object");
+        expect(updated.foo).to.not.be(obj.foo);
+        expect(updated.foo.bar).to.be.an("object");
+        expect(updated.foo.bar).to.not.be(obj.foo.bar);
+        expect(updated.foo.bar.baz).to.be(13);
+    });
+
+    it("should not update original object", () => {
+        var updated = immut.walk(obj, ["foo", "bar"], immut.set, "baz", 13);
+        expect(obj.foo.bar.baz).to.be(42);
+    });
+
+    it("should return frozen object", () => {
+        var updated = immut.walk(obj, ["foo", "bar"], immut.set, "baz", 13);
+        expect(Object.isFrozen(updated)).to.be(true);
+    });
+});
+
