@@ -102,6 +102,27 @@ describe("set(object, object)", () => {
     });
 });
 
+describe("delete(object, string)", () => {
+    var obj = {foo: 42};
+
+    it("should return new object with key deleted", () => {
+        var updated = immut.delete(obj, "foo");
+        expect(updated).to.be.an("object");
+        expect(updated).to.not.be(obj);
+        expect(updated.foo).to.be(undefined);
+    });
+
+    it("should not updated original object", () => {
+        var updated = immut.delete(obj, "foo");
+        expect(obj.foo).to.be(42);
+    });
+
+    it("should return frozen object", () => {
+        var updated = immut.delete(obj, "foo");
+        expect(Object.isFrozen(updated)).to.be(true);
+    });
+});
+
 describe("walk(obj, string[], function, ...)", () => {
     var obj = {foo: {bar: {baz: 42}}},
         arr = {foo: {bar: [42]}};

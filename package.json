@@ -1,6 +1,6 @@
 {
   "name": "immut",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "immutable helpers",
   "main": "immut.js",
   "scripts": {
